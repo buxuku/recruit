@@ -31,6 +31,23 @@ app.get('/user',function(req,res){
         res.json(doc);
     })
 })
+app.get('/add',function(req,res){
+    User.create({
+        user: 'imooc',
+        age: 18
+    },function(err,doc){
+        if(!err){
+            console.log(doc);
+        }else{
+            console.log(err);
+        }
+    })
+})
+app.get('/update',function(req,res){
+    User.update({user:'imooc'},{'$set':{age:33}},function(err,doc){
+        res.json(doc);
+    })
+})
 app.get('/delete',function(req,res){
     User.remove({age:18},function(err,doc){
         res.json(doc);
