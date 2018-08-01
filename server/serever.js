@@ -1,7 +1,11 @@
 const express = require('express');
-
+const mongoose = require('mongoose');
 const app = express();
-
+const DB_URL = 'mongodb://localhost:27017';
+mongoose.connect(DB_URL);
+mongoose.connection.on('connected',function(){
+    console.log('mongod success');
+});
 app.get('/',function(req,res){
     res.send('<h1>hello world</h1>');
 })
