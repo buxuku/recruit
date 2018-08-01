@@ -6,7 +6,7 @@ app.get('/',function(req,res){
     res.send('<h1>hello world</h1>');
 })
 app.get('/data',function(req,res){
-    res.json({name: 'ok'})
+    res.json({name: 'oks'})
 })
 app.listen(9003,function(){
     console.log('start on port 9003');
