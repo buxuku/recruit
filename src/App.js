@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import reducers from './reducers';
 import Login from './container/login/login';
 import Register from './container/register/register';
+import AutoRouter from './component/authrouter/authrouter';
+import AuthRouter from './component/authrouter/authrouter';
 
 const store = createStore(reducers, compose(
   applyMiddleware(thunk),
@@ -17,6 +19,7 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
            <div>
+              <AuthRouter />
               <Route path='/login' component={Login}></Route>
               <Route path='/register' component={Register}></Route>
            </div>
