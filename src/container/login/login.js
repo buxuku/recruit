@@ -1,8 +1,13 @@
 import React from 'react';
-
+import Logo from '../../component/logo/logo'
 class Login extends React.Component{
     render(){
-        return <h1>登录页面</h1>
+        return (
+            <div>
+                <Logo />
+                <h1>登录页面</h1>
+            </div>
+        )
     }
 }
 

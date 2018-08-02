@@ -1,8 +1,18 @@
 import React from 'react';
-
+import Logo from '../../component/logo/logo';
+import { WingBlank, Button, InputItem, List } from 'antd-mobile';
 class Register extends React.Component{
     render(){
-        return <h1>注册页面</h1>
+        return (
+            <div>
+                <Logo />
+                <WingBlank />
+                <InputItem>用户名</InputItem>
+                <InputItem>密码</InputItem>
+                <Button>登录</Button>
+                <Button>注册</Button>
+            </div>
+        )
     }
 }
 
