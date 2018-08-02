@@ -13,6 +13,10 @@ const store = createStore(reducers, compose(
   applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f,
 ))
+
+function Boss () {
+  return <h2>Boss</h2>
+}
 class App extends Component {
   render() {
     return (
@@ -20,6 +24,7 @@ class App extends Component {
         <BrowserRouter>
            <div>
               <AuthRouter />
+              <Route path='/boss' component={Boss}></Route>
               <Route path='/login' component={Login}></Route>
               <Route path='/register' component={Register}></Route>
            </div>
