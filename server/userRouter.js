@@ -1,3 +1,4 @@
+const util = require('utility');
 const express = require('express');
 const Router =  express.Router();
 const model = require('./modal');
@@ -15,7 +16,7 @@ Router.post('/register',function(req,res){
         if(doc){
             return res.json({code: 1, msg: '用户已经存在'})
         }
-        User.create({user,pwd,type},function(err,doc){
+        User.create({user,pwd:md5Pwd(pwd),type},function(err,doc){
             if(err){
                 return res.json({code:1, msg:'error'})
             }
@@ -26,5 +27,8 @@ Router.post('/register',function(req,res){
 Router.get('/info',function(req,res){
     return res.json({code: 1})
 })
-
+function md5Pwd(pwd) {
+    const salt = "ILovyd#didfds(343!!3439sdf";
+    return util.md5(util.md5(pwd+salt));
+}
 module.exports = Router;

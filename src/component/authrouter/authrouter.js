@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 class AuthRouter extends React.Component{
     componentDidMount(){
-        const publicList = ['/login','register'];
+        const publicList = ['/login','/register'];
         const pathname = this.props.location.pathname;
         if(publicList.indexOf(pathname) > -1) {
             return null
