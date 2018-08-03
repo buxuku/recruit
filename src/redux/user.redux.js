@@ -2,6 +2,7 @@ import axios from 'axios';
 import {redirectToPath} from '../util';
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
 const initState = {
     redirectTo:'',
@@ -17,6 +18,8 @@ export default function user(state = initState, action) {
             return {...state,isAuth:true,redirectTo:redirectToPath(action.payload),msg: '',...action.payload}
         case ERROR_MSG:
             return {...state,msg:action.msg}
+        case LOGIN_SUCCESS:
+            return {...state,isAuth:true,redirectTo:redirectToPath(action.payload),msg: '',...action.payload}
         default:
         return state;
     }
@@ -29,7 +32,23 @@ function error_msg(msg) {
 function register_success(data) {
     return {type: REGISTER_SUCCESS, payload: data}
 }
-
+function login_success(data) {
+    return {type: LOGIN_SUCCESS,payload: data}
+}
+export function login({user,pwd}){
+    if(!user || !pwd ){
+        return error_msg('用户名或者密码不能为空')
+    }
+    return dispatc => {
+        axios.post('/user/login',{user,pwd}).then(res => {
+            if (res.status === 200 && res.data.code === 0) {
+                dispatc(login_success(res.data.data))
+            }else {
+                dispatc(error_msg(res.data.msg))
+            }
+        })
+    }
+}
 export function register({user,pwd,repeatpwd,type}){
     if(!user || !pwd || !repeatpwd ){
         return error_msg('用户名或者密码不能为空')
