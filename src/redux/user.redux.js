@@ -3,6 +3,7 @@ import {redirectToPath} from '../util';
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const LOAD_DATA = 'LOAD_DATA';
 
 const initState = {
     redirectTo:'',
@@ -20,6 +21,8 @@ export default function user(state = initState, action) {
             return {...state,msg:action.msg}
         case LOGIN_SUCCESS:
             return {...state,isAuth:true,redirectTo:redirectToPath(action.payload),msg: '',...action.payload}
+        case LOAD_DATA:
+            return {...state,...action.payload}
         default:
         return state;
     }
@@ -34,6 +37,9 @@ function register_success(data) {
 }
 function login_success(data) {
     return {type: LOGIN_SUCCESS,payload: data}
+}
+export function loadData(data) {
+    return {type: LOAD_DATA, payload: data}
 }
 export function login({user,pwd}){
     if(!user || !pwd ){
