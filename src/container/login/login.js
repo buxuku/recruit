@@ -34,6 +34,7 @@ class Login extends React.Component{
             <div>
                 {this.props.redirectTo && <Redirect to={this.props.redirectTo} />}
                 <Logo />
+                {this.props.msg && <p className="error_msg">{this.props.msg}</p>}
                 <WingBlank />
                 <InputItem
                     onChange={v=>this.handleChange('user',v)}

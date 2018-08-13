@@ -28,7 +28,7 @@ class AuthRouter extends React.Component{
           })
     }
     render (){
-        return <p>test</p>
+        return null
     }
 }
 
