@@ -1,5 +1,7 @@
 import React from 'react';
 import { NavBar, List, InputItem, TextareaItem, Button } from 'antd-mobile';
+import AvatorSelector from '../avatar-selector/avator-selecter.js';
+
 class BossInfo extends React.Component{
     constructor(props){
         super(props);
@@ -10,11 +12,17 @@ class BossInfo extends React.Component{
             [type]: v,
         })
     }
+    handleSelect = (v) => {
+        this.setState({
+            avator: v,
+        })
+    }
     render(){
         return (
             <div>
                 <NavBar >BOSS信息完善</NavBar>
                 <List>
+                    <AvatorSelector onSelect={(v) => this.handleSelect(v)}/>
                     <InputItem onChange={(v) => this.onChange('title',v)}>
                         职位名称
                     </InputItem>
