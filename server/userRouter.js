@@ -27,6 +27,23 @@ Router.post('/register',function(req,res){
         });
     })
 })
+Router.post('/update',function(req,res){
+    const body = req.body;
+    const usderId = req.cookies.userid;
+	if (!usderId) {
+		return res.dumps({code:1})
+    }
+    User.findByIdAndUpdate(usderId, body, function(err,doc){
+        if(err){
+            return res.json({code: 1,msg: '查询出错'});
+        }
+        const data = Object.assign({},{
+			user:doc.user,
+			type:doc.type
+		},body)
+        return res.json({code:0, data});
+    })
+})
 Router.post('/login',function(req,res){
     const {user,pwd} = req.body;
     User.findOne({user,pwd:md5Pwd(pwd)},_filter, function(err,doc){

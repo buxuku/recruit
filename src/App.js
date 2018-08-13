@@ -7,7 +7,7 @@ import reducers from './reducers';
 import Login from './container/login/login';
 import Register from './container/register/register';
 import AuthRouter from './component/authrouter/authrouter';
-import BossInfo from './component/bossinfo/bossinfo';
+import BossInfo from './container/bossinfo/bossinfo';
 
 const store = createStore(reducers, compose(
   applyMiddleware(thunk),
