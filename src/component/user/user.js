@@ -4,6 +4,20 @@ import { connect } from "react-redux";
 import browserCookie from 'browser-cookies';
 import { Redirect } from 'react-router-dom';
 import {logout} from '../../redux/user.redux';
+
+function hello (){
+    console.log('test');
+}
+function wraphello(fn){
+    return function(){
+        console.log('test1');
+        fn();
+        console.log('test2');
+    }
+
+}
+hello = wraphello(hello);
+hello();
 @connect(state => state.user,{logout})
 class User extends React.Component {
     constructor(props){

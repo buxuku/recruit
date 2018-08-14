@@ -4,30 +4,23 @@ import {Redirect} from 'react-router-dom';
 import {login} from '../../redux/user.redux';
 import Logo from '../../component/logo/logo'
 import { WingBlank, WhiteSpace, Button, InputItem } from 'antd-mobile';
-
+import Form from '../../component/form/form'
 @connect(
     state => state.user,
     {login}
 )
+@Form
 class Login extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            user:'',
-            pwd: ''
         }
     }
     handleRegister = () => {
-        console.log(this.props);
         this.props.history.push({pathname: '/register'});
     }
-    handleChange = (type,value) => {
-        this.setState({
-            [type]:value
-        })
-    }
     handleLogin = () => {
-        this.props.login(this.state);
+        this.props.login(this.props.state);
     }
     render(){
         return (
@@ -37,11 +30,11 @@ class Login extends React.Component{
                 {this.props.msg && <p className="error_msg">{this.props.msg}</p>}
                 <WingBlank />
                 <InputItem
-                    onChange={v=>this.handleChange('user',v)}
+                    onChange={v=>this.props.handleChange('user',v)}
                 >用户名</InputItem>
                 <WingBlank />
                 <InputItem
-                    onChange={v=>this.handleChange('pwd',v)}
+                    onChange={v=>this.props.handleChange('pwd',v)}
                 >密码</InputItem>
                 <WhiteSpace />
                 <Button onClick={this.handleLogin} type="primary">登录</Button>
