@@ -5,11 +5,9 @@ import { Switch, Route } from "react-router-dom";
 import NavLink from '../navlink/navlink';
 import Boss from '../boss/boss';
 import Genius from '../genius/genius';
+import User from '../user/user';
 function Msg() {
   return <h2>msg</h2>;
-}
-function User() {
-  return <h2>user</h2>;
 }
 @connect(state => state)
 class Dashboard extends React.Component {
