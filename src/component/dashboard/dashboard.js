@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
             <Route key={v.path} path={v.path} component={v.component} />
           ))}
         </Switch>
-        <NavLink data={navList} />
+        <div className="footer"><NavLink data={navList} /></div>
       </div>
     );
   }
