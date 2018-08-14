@@ -1,7 +1,10 @@
 import React from 'react';
 import { Grid, List } from 'antd-mobile';
-
+import PropTyps from 'prop-types';
 class AvatorSelector extends React.Component{
+    static propTypes = {
+        onSelect: PropTyps.func.isRequired,
+    }
     constructor(props){
         super(props);
         this.state={}
