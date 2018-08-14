@@ -3,9 +3,8 @@ import { connect } from "react-redux";
 import { NavBar } from "antd-mobile";
 import { Switch, Route } from "react-router-dom";
 import NavLink from '../navlink/navlink';
-function Boss() {
-  return <h2>boss</h2>;
-}
+import Boss from '../boss/boss';
+
 function Genius() {
   return <h2>genius</h2>;
 }
@@ -23,6 +22,7 @@ class Dashboard extends React.Component {
   }
   render() {
     const user = this.props.user;
+    console.log(user);
     const pathname = this.props.location.pathname;
     const navList = [
       {
