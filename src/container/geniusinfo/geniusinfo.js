@@ -9,7 +9,7 @@ import {update} from '../../redux/user.redux';
     state => state.user,
     {update}
 )
-class BossInfo extends React.Component{
+class GeniusInfo extends React.Component{
     constructor(props){
         super(props);
         this.state={}
@@ -33,23 +33,17 @@ class BossInfo extends React.Component{
         return (
             <div>
                 {(redirectTo && redirectTo !== path) && <Redirect to={this.props.redirectTo} />}
-                <NavBar >BOSS信息完善</NavBar>
+                <NavBar >牛人信息完善</NavBar>
                 <List>
                     <AvatorSelector onSelect={(v) => this.handleSelect(v)}/>
                     <InputItem onChange={(v) => this.onChange('title',v)}>
-                        职位名称
+                        求职
                     </InputItem>
-                    <InputItem onChange={(v) => this.onChange('company',v)}>
-                        公司名字
-                    </InputItem>
-                    <InputItem onChange={(v) => this.onChange('money',v)}>
-                        薪资范围
-                    </InputItem>
-                    <TextareaItem title='职位要求' rows={3} autoHeight onChange={(v) => this.onChange('desc',v)} />
+                    <TextareaItem title='个人简介' rows={3} autoHeight onChange={(v) => this.onChange('desc',v)} />
                     </List>
                     <Button onClick={this.handelUpdate} type="primary">保存</Button>
                 </div>
         )
     }
 }
-export default BossInfo;
+export default GeniusInfo;

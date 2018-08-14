@@ -28,7 +28,8 @@ function error_msg(msg) {
     return {msg, type: ERROR_MSG}
 }
 
-function auth_success(data) {
+function auth_success(obj) {
+    const {pwd, ...data} = obj;
     return {type: AUTH_SUCCESS,payload: data}
 }
 export function loadData(data) {
