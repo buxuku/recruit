@@ -14,7 +14,7 @@ class Register extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            type: 'geniu'
+            type: 'genius'
         }
     }
     handleChange = (key,v) => {
@@ -45,8 +45,8 @@ class Register extends React.Component{
                     onChange={v=>this.handleChange('repeatpwd',v)}
                 >确认密码</InputItem>
                 <RadioItem
-                  checked={this.state.type === 'geniu'}
-                  onChange={()=>this.handleChange('type','geniu')}
+                  checked={this.state.type === 'genius'}
+                  onChange={()=>this.handleChange('type','genius')}
                 >牛人</RadioItem>
                 <RadioItem
                     checked={this.state.type === 'boss'}
