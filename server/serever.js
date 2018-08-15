@@ -6,9 +6,18 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+const model = require('./modal');
+const Chat = model.getModel('chat');
+
 io.on('connection',function(socket){
     socket.on('sendmsg', function(data){
-        io.emit('recvmsg', data);
+        console.log(data);
+        const {from, to , content} = data;
+        const chatid = [from,to].sort().join('_');
+        Chat.create({from,to,content,chatid},function(err,doc){
+            console.log(err,doc);
+            io.emit('recvmsg', Object.assign({},doc._doc));
+        })
     })
 })
 
