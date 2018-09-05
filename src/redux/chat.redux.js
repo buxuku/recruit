@@ -14,38 +14,42 @@ const initData = {
 export default function chat(state = initData, action){
     switch(action.type){
         case MSG_LIST:
-        return {...state,users:action.payload.users, chatmsg: action.payload.data,unread: action.payload.data.filter(v => !v.read).length}
+        return {...state,users:action.payload.users, chatmsg: action.payload.data,unread: action.payload.data.filter(v => !v.read && v.to === action.userId).length}
         case RECV_MSG:
-        return {...state, chatmsg: [...state.chatmsg, action.payload], unread: state.unread+1}
+        const n = action.payload.to === action.userId ? 1 : 0;
+        return {...state, chatmsg: [...state.chatmsg, action.payload], unread: state.unread+n}
         default:
         return state
     }
 }
 
-function getmsg(data,users) {
-    return {type: MSG_LIST, payload:{data,users}}
+function getmsg(data,users,userId) {
+    return {type: MSG_LIST, payload:{data,users},userId}
 }
-function recvedMsg(data) {
-    return {type: RECV_MSG, payload: data}
+function recvedMsg(data,userId) {
+    return {type: RECV_MSG, payload: data,userId}
 }
 export function recvMsg(){
-    return dispatch => {
+    return (dispatch,getState) => {
         socket.on('recvmsg', function(data) {
-            dispatch(recvedMsg(data))
+            const userId = getState().user._id;
+            dispatch(recvedMsg(data,userId))
         })
     }
 }
 export function sendMsg({from,to,content}) {
+    console.log("sendMsg");
     return dispatch => {
         socket.emit("sendmsg", {from, to, content });
     }
 }
 export function getMsgList(){
-    return dispatch => {
+    return (dispatch, getState) => {
         axios.get('/user/msglist').then(
             res=>{
                 if(res.status === 200 && res.data.code === 0){
-                    dispatch(getmsg(res.data.msgs,res.data.users))
+                    const userId = getState().user._id;
+                    dispatch(getmsg(res.data.msgs,res.data.users,userId))
                 }
             }
         )

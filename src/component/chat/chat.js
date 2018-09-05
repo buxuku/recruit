@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import { List, InputItem, NavBar,Icon } from "antd-mobile";
 import {connect} from 'react-redux'
 import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux';
-const socket = io("ws://localhost:9003");
+import {getChatId} from '../../util';
 @connect(
     state => state,
     {getMsgList, sendMsg, recvMsg}
@@ -17,8 +17,10 @@ class Chat extends React.Component {
     };
   }
   componentDidMount() {
-    this.props.getMsgList();
-    this.props.recvMsg();
+    if(!this.props.chat.chatmsg.length){
+      this.props.getMsgList();
+      this.props.recvMsg();
+    }
   }
   handleSend = () => {
     const from  = this.props.user._id;
@@ -34,13 +36,16 @@ class Chat extends React.Component {
       return null;
     }
     const Item = List.Item;
+    const chatId = getChatId(this.props.user._id, user);
+    const chatmsg = this.props.chat.chatmsg.filter(v => v.chatid === chatId)
+    console.log(chatmsg);
     return (
       <div id="chat-page">
         <NavBar
             icon={<Icon type='left' />}
             onLeftClick={() => this.props.history.goBack()}
         >{users[user].name}</NavBar>
-        {this.props.chat.chatmsg.map(v => {
+        {chatmsg.map(v => {
           const avatar = require(`../img/${users[v.from].avatar}.png`);
           return v.from === user ? <List key={v._id}>
             <Item
