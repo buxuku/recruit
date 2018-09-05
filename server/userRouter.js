@@ -13,9 +13,17 @@ Router.get('/list',function(req,res){
     })
 })
 Router.get('/msglist',function(req,res){
-    Chat.find({}, function(err,doc){
-        return res.json({code: 0,msgs:doc});
+    const userid = req.cookies.userid;
+    const users = {};
+    User.find({},function(err,doc){
+        doc.forEach(item => {
+            users[item._id] = {name: item.user,avatar:item.avatar}
+        })
+        Chat.find({'$or': [{from: userid},{to: userid}] }, function(err,docs){
+            return res.json({code: 0,msgs:docs,users});
+        })
     })
+
 })
 Router.post('/register',function(req,res){
     const {user,pwd,type} = req.body;
