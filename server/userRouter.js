@@ -23,7 +23,20 @@ Router.get('/msglist',function(req,res){
             return res.json({code: 0,msgs:docs,users});
         })
     })
-
+})
+Router.post('/readmsg',function(req,res){
+    const userid = req.cookies.userid;
+    const {from} = req.body;
+    Chat.update({from,to:userid},
+        {'$set':{read:true}},
+        {'multi':true},
+        function(err,doc){
+            if(!err){
+                return res.json({code:0,num:doc.nModified})
+            }
+            return res.json({code:1,msg:'更新失败'})
+        }
+    );
 })
 Router.post('/register',function(req,res){
     const {user,pwd,type} = req.body;
